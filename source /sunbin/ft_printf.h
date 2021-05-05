@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunbchoi <sunbchoi@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sunbchoi <sunbchoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 20:59:51 by sunbchoi          #+#    #+#             */
-/*   Updated: 2021/05/05 16:32:44 by sunbchoi         ###   ########.fr       */
+/*   Updated: 2021/05/05 18:55:31 by sunbchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@
 # define TYPE_HEX_UP_X 7
 # define TYPE_PERSENT 8
 
-int				ft_printf(const char *format, ...);
+int		ft_printf(const char *format, ...);
+int		proc_analysis_format(va_list ap, char* format);
+char*   proc_word_print(char *format, int *ret);
+char	*parsing_format(char* format, int* ret);
+char*   proc_field_format(char* format, int *len);
+
 
 #endif
