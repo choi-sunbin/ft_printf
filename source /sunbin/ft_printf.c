@@ -6,7 +6,7 @@
 /*   By: sunbchoi <sunbchoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 20:58:29 by sunbchoi          #+#    #+#             */
-/*   Updated: 2021/05/06 16:37:35 by sunbchoi         ###   ########.fr       */
+/*   Updated: 2021/05/06 20:41:20 by sunbchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,44 +21,37 @@ int		ft_printf(const char *format, ...)
 
 	va_start(ap, format);
 	temp = ft_strdup(format);
-	result = proc_analysis_format(ap, temp);
+	result = proc_split_format(ap, temp);
 	va_end(ap);
 	return (1);
 }
 
-int		proc_analysis_format(va_list ap, char* format)
+int		proc_split_format(va_list ap, char* format)
 {
-	int result;
-	
-	format = parsing_format(format, &result);
-	return (1);
-}
-
-char	*parsing_format(char* format, int* ret)
-{
-	char	*ret_format;
+	int		result;
 	int		check_loop;
 
-	ret_format = 0;
 	check_loop = 0;
+	printf("------------------------------\n");
+	printf("FORMAT=[%s]\n", format);
 	while (format && format[0] != 0)
 	{
+		printf("------------------------------\n");
 		printf("check_loop [%d]\n", ++check_loop);
 		if (format[0] == '%')
 		{
-			format = proc_field_format(format, ret);
+			format = proc_field_format(format, &result);
 			if(format == 0)
 			{
 				printf("ERROR[%s]\n", format);
-				return (0);
 			}
 		}
 		else
 		{
-			format = proc_word_print(format, ret);
+			format = proc_word_formatu(format, &result);
 		}
 	}
-	return (ret_format);
+	return (result);
 }
 
 char* proc_field_format(char* format, int *len)
@@ -82,17 +75,18 @@ char* proc_field_format(char* format, int *len)
 					return(0);
 				ft_memcpy(field_str, format, field_len);
 				printf("FIELD_STR=[%s] FIELD_LEN=[%d]\n", field_str, field_len);
+				free(field_str);
 				return (format + field_len);
 			}
 		}
 		else
-			return (0);
+			return (format + 1);
 		loop++;
 	}
 	return (0);
 }
 
-char* proc_word_print(char *format, int *ret)
+char* proc_word_format(char *format, int *ret)
 {
 	char	*check_point;
 	int		len;
@@ -108,7 +102,8 @@ char* proc_word_print(char *format, int *ret)
 		len = ft_strlen(format);
 		ret += len;
 	}
-	write(1, format, len);
+	printf("WORD_PRINT[%.*s]\n",len, format);
+	//write(1, format, len);
 	return (format + len);
 }
 
