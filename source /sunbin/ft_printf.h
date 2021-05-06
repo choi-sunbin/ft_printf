@@ -6,7 +6,7 @@
 /*   By: sunbchoi <sunbchoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 20:59:51 by sunbchoi          #+#    #+#             */
-/*   Updated: 2021/05/05 18:55:31 by sunbchoi         ###   ########.fr       */
+/*   Updated: 2021/05/06 15:31:19 by sunbchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ int		proc_analysis_format(va_list ap, char* format);
 char*   proc_word_print(char *format, int *ret);
 char	*parsing_format(char* format, int* ret);
 char*   proc_field_format(char* format, int *len);
+
+/*      INPUT_CHECK.c       */
+int		is_specifier(int check);
+int		is_flag(int check);
+int		input_check(int check);
 
 
 #endif
